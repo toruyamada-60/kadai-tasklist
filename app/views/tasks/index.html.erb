@@ -1,32 +1,35 @@
 <% if logged_in? %>
-  <p>ログインユーザー：<%= current_user.name %>のタスク一覧</p>
-  <% if @tasks.any? %>
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>タスク</th>
-        <th>ステータス</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-        <tr>
-          <td><%= link_to task.id, task %></td>
-          <td><%= task.content %></td>
-          <td><%= task.status %></td>
-        </tr>
+
+  <div class="row">
+    <aside class="col-sm-4">
+      <%= form_with(model: @task, local: true) do |f| %>
+
+        <div class="form-group">
+          <%= f.label :content, 'タスク' %>
+          <%= f.text_field :content, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :status, 'ステータス' %>
+          <%= f.text_field :status, class: 'form-control' %>
+        </div>
+        <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
+    
       <% end %>
-    </tbody>
-  </table>
-  <% end %>
-  <div><%= paginate @tasks %></div>
-　<%= link_to '新規タスク作成', new_task_path, class: "btn btn-primary" %>
-<% else %>
-  <div class="center jumbotron">
-    <div class="text-center">
-      <h1>Let's manage your tasks!</h1>
+
+    </aside>
+    <div class="col-sm-8">
+      <%= render 'tasks/tasks', tasks: @tasks %>
     </div>
   </div>
-  <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+  <div><%= paginate @tasks %></div>
+<% else %>
+
+  <div class="center jumbotron">
+    <div class="text-center">
+      <h1>Welcome to the Tasks</h1>
+      
+<%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+
+    </div>
+  </div>
 <% end %>
