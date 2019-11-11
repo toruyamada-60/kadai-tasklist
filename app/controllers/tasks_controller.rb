@@ -22,7 +22,7 @@ class TasksController < ApplicationController
   end
   
   def new
-    @task = Task.new
+    @task = current_user.tasks.build
   end
   
   def edit
@@ -44,7 +44,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     flash[:success] = 'タスクが削除されました'
-    redirect_back(fallback_location: root_path)
+    redirect_to root_url
   end
   
   private
