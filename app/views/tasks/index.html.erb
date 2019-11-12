@@ -7,10 +7,7 @@
   <div><%= paginate @tasks %></div>
   <%= link_to '新規作成', new_task_path %>
 <% else %>
-  <div class="center jumbotron">
-    <div class="text-center">
-      <h1>Let's manage your tasks!</h1>
-      <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
-    </div>
+  <div>
+    <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
   </div>
 <% end %>
